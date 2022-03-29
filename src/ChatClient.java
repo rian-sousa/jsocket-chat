@@ -47,6 +47,32 @@ public class ChatClient {
 
         while(true){
 
+            String str = in.readLine(); //ler mensagens do servidor
+            if(str.equals("NAME-REQUIRED"))
+            {
+                String name = JOptionPane.showInputDialog(
+                    chatWindow,
+                    "Enter a unique name: ",    //caixa de diálogo pedindo um nome ao entrar
+                    "Name Required!",
+                    JOptionPane.PLAIN_MESSAGE);
+
+                out.println(name);
+            } 
+            else if(str.equals("NAME-ALREADY-EXISTS"))
+            {
+                String name = JOptionPane.showInputDialog(
+                    chatWindow,
+                    "Enter another name: ", //caixa de diálogo pedindo outro nome caso já exista
+                    "Name Already Exists!!",
+                    JOptionPane.WARNING_MESSAGE);
+
+                out.println(name);
+            } 
+            else if (str.equals("NAME-ACCEPTED"))
+            {
+                textField.setEditable(true);
+            }
+
         }
 
     }

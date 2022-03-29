@@ -44,24 +44,31 @@ class ConversationHandler extends Thread{
 
             int count = 0;
             while (true) {
-                if(count > 0){
+                if(count > 0)
+                {
                     out.println("NAME-ALREADY-EXISTS"); //mostra para o usuário que o nome já existe
-                } else{
+                } 
+                else
+                {
                     out.println("NAME-REQUIRED");
                 }
                 name = in.readLine();
 
-                if(name == null){
+                if(name == null)
+                {
                     return;
                 }
 
-                if(!ChatServer.userNames.contains(name)){ //caso o nome não seja duplicado
+                if(!ChatServer.userNames.contains(name))
+                { //caso o nome não seja duplicado
                     ChatServer.userNames.add(name);
                     break;
                 }
-                count++;
-
+                count++; 
             }
+
+            out.println("NAME-ACCEPTED");
+            ChatServer.printWriters.add(out);
 
 
 
