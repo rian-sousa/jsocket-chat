@@ -82,12 +82,8 @@ class ConversationHandler extends Thread{
                 { //pra cada writer da lista, irá enviar a mensagem
                     writer.println(">>" + name + ": " + message);
                 }
-
-                
             }
-
-
-
+            
         } catch (Exception e) {
             System.out.println(e);
         }

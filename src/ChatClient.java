@@ -1,8 +1,8 @@
 import javax.swing.*;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -48,11 +48,11 @@ public class ChatClient {
 
         Socket soc = new Socket(ipAddress, 8080);
         BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
-        PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
+        out = new PrintWriter(soc.getOutputStream(), true);
 
         while(true){
 
-            String str = in.readLine(); //ler mensagens do servidor
+            String str = in.readLine(); //ler mensagens p/ servidor
             if(str.equals("NAME-REQUIRED"))
             {
                 String name = JOptionPane.showInputDialog(
@@ -86,8 +86,6 @@ public class ChatClient {
 
     }
 
-
-
     public static void main(String[] args) throws Exception {
 
         ChatClient client = new ChatClient();
@@ -102,7 +100,7 @@ class Listener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         ChatClient.out.println(ChatClient.textField.getText()); //envia o texto p/ servidor
-        ChatClient.textField.setText(""); //limpa a área de digitação
+        ChatClient.textField.setText(" "); //limpa a área de digitação
         
     }
 
