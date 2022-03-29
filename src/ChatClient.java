@@ -36,12 +36,12 @@ public class ChatClient {
     void startChat() throws Exception{
 
         String ipAddress = JOptionPane.showInputDialog(
-            chatWindow,  //qual fram vai aparecer
+            chatWindow,  //em qual frame vai aparecer
             "Enter IP Address: ", //Mensagem que ira aparecer
             "IP Address Required!",  //Titulo da janela
             JOptionPane.PLAIN_MESSAGE);
 
-        Socket soc = new Socket(ipAddress, 9800);
+        Socket soc = new Socket(ipAddress, 8080);
         BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
         PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
 

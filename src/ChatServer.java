@@ -1,11 +1,18 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ChatServer {
+
+    static ArrayList<String> userNames = new ArrayList<String>();
+    //lista para evitar a duplicação de nomes no chat
+    static ArrayList<PrintWriter> printWriters = new ArrayList<PrintWriter>();
+    //faz o servidor enviar a  mensagem para todos os clientes
+
     public static void main(String[] args) throws Exception {
         System.out.println("Waiting for clients...");
-        ServerSocket ss = new ServerSocket(9806); //cria uma nova conexão socket
+        ServerSocket ss = new ServerSocket(8080); //cria uma nova conexão socket
                                                   //create a new socket connection
         while(true){
             Socket soc = ss.accept();  //aceita conexões de maneira constante / Accepting new connections
@@ -22,6 +29,7 @@ class ConversationHandler extends Thread{
     Socket socket;
     BufferedReader in;
     PrintWriter out;
+    String name;
 
     public ConversationHandler(Socket socket) throws IOException{
         this.socket = socket;
@@ -33,7 +41,29 @@ class ConversationHandler extends Thread{
             // "in" recebe as informações do cliente
             out = new PrintWriter(socket.getOutputStream(), true);
             //"out" imprime as informações recebidas do cliente, no servidor
-            
+
+            int count = 0;
+            while (true) {
+                if(count > 0){
+                    out.println("NAME-ALREADY-EXISTS"); //mostra para o usuário que o nome já existe
+                } else{
+                    out.println("NAME-REQUIRED");
+                }
+                name = in.readLine();
+
+                if(name == null){
+                    return;
+                }
+
+                if(!ChatServer.userNames.contains(name)){ //caso o nome não seja duplicado
+                    ChatServer.userNames.add(name);
+                    break;
+                }
+                count++;
+
+            }
+
+
 
         } catch (Exception e) {
             System.out.println(e);
