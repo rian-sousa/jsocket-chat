@@ -1,6 +1,8 @@
 import javax.swing.*;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -30,6 +32,9 @@ public class ChatClient {
 
         textField.setEditable(false);  //só é permitido o usuário digitar após a conexão ser estabelecida
         chatArea.setEditable(false);
+        
+        sendButton.addActionListener(new Listener()); //botão enviar
+        textField.addActionListener(new Listener()); //tecla "ENTER" também serve como enviat
 
     }
 
@@ -72,6 +77,10 @@ public class ChatClient {
             {
                 textField.setEditable(true);
             }
+            else
+            {
+                chatArea.append(str + "\n"); //acrescenta a mensagem ao chat
+            }
 
         }
 
@@ -86,4 +95,16 @@ public class ChatClient {
      
         
     }
+}
+
+class Listener implements ActionListener{
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        ChatClient.out.println(ChatClient.textField.getText()); //envia o texto p/ servidor
+        ChatClient.textField.setText(""); //limpa a área de digitação
+        
+    }
+
+
 }

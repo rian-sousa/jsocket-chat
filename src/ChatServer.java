@@ -56,19 +56,35 @@ class ConversationHandler extends Thread{
 
                 if(name == null)
                 {
-                    return;
+                    return; //volta pro inicio
                 }
 
                 if(!ChatServer.userNames.contains(name))
                 { //caso o nome não seja duplicado
                     ChatServer.userNames.add(name);
-                    break;
+                    break;  //quebra o loop
                 }
                 count++; 
             }
 
             out.println("NAME-ACCEPTED");
             ChatServer.printWriters.add(out);
+
+            while (true) {
+                String message = in.readLine();
+
+                if(message == null)
+                {
+                    return; 
+                }
+
+                for(PrintWriter writer : ChatServer.printWriters)
+                { //pra cada writer da lista, irá enviar a mensagem
+                    writer.println(">>" + name + ": " + message);
+                }
+
+                
+            }
 
 
 
