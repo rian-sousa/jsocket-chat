@@ -30,9 +30,16 @@ class ConversationHandler extends Thread{
     BufferedReader in;
     PrintWriter out;
     String name;
+    PrintWriter pwLog;
+    static FileWriter fw;
+    static BufferedWriter bw;
 
     public ConversationHandler(Socket socket) throws IOException{
         this.socket = socket;
+        fw = new FileWriter("/home/rian/Java projects/jsocket-chat/ChatServer-log.txt", true);
+        //true = não limpar o conteúdo, apenas incrementar (append)
+        bw = new BufferedWriter(fw);
+        pwLog = new PrintWriter(bw, true); //true = auto-flush
     }
  
     public void run(){
@@ -77,6 +84,8 @@ class ConversationHandler extends Thread{
                 {
                     return; 
                 }
+
+                pwLog.println(name + ": " + message); //fazendo o log do chat
 
                 for(PrintWriter writer : ChatServer.printWriters)
                 { //pra cada writer da lista, irá enviar a mensagem
