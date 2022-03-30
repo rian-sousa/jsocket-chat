@@ -16,11 +16,13 @@ public class ChatClient {
     static JLabel blankLabel = new JLabel("             ");  //Linha em branco entre mensagens
     static JButton sendButton = new JButton("Enviar/Send");
     static PrintWriter out;
+    static JLabel nameLabel = new JLabel("       ");
 
     ChatClient(){
 
         chatWindow.setLayout(new FlowLayout());
 
+        chatWindow.add(nameLabel);
         chatWindow.add(new JScrollPane(chatArea));   //Barra de rolagem do chat
         chatWindow.add(blankLabel);
         chatWindow.add(textField);
@@ -73,9 +75,10 @@ public class ChatClient {
 
                 out.println(name);
             } 
-            else if (str.equals("NAME-ACCEPTED"))
+            else if (str.startsWith("NAME-ACCEPTED"))
             {
                 textField.setEditable(true);
+                nameLabel.setText("You are logged in as: "+str.substring(13));
             }
             else
             {

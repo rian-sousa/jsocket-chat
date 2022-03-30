@@ -67,7 +67,7 @@ class ConversationHandler extends Thread{
                 count++; 
             }
 
-            out.println("NAME-ACCEPTED");
+            out.println("NAME-ACCEPTED"+name);
             ChatServer.printWriters.add(out);
 
             while (true) {
